@@ -1,0 +1,45 @@
+name: 📝 Commit Lint
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  commitlint:
+    name: 🔍 Validate Commit Messages
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 📝 Validate commit messages
+        run: |
+          # Get all commits in this PR
+          commits=$(git rev-list --no-merges origin/main..HEAD)
+          
+          # Regex for conventional commits
+          commit_regex='^(feat|fix|docs|style|refactor|perf|test|build|ci|chore)(\(.+\))?: .{1,72}$'
+          
+          invalid_commits=()
+          
+          for commit in $commits; do
+            message=$(git log --format=%s -n 1 $commit)
+            echo "Checking: $message"
+          
+            if ! echo "$message" | grep -qE "$commit_regex"; then
+              invalid_commits+=("$commit: $message")
+            fi
+          done
+          
+          if [ ${#invalid_commits[@]} -ne 0 ]; then
+            echo "❌ Invalid commit messages found:"
+            printf '%s\n' "${invalid_commits[@]}"
+            echo ""
+            echo "📖 See .github/COMMIT_CONVENTION.md for proper format"
+            exit 1
+          else
+            echo "✅ All commit messages are valid!"
+          fi

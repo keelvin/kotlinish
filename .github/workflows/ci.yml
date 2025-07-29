@@ -1,0 +1,74 @@
+name: 🚀 CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    name: 🧪 Test on Dart ${{ matrix.dart-version }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        dart-version: ['3.8.1', 'stable']
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🎯 Setup Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          dart-version: ${{ matrix.dart-version }}
+
+      - name: 📦 Get dependencies
+        run: dart pub get
+
+      - name: 🔍 Verify formatting
+        run: dart format --output=none --set-exit-if-changed .
+
+      - name: 📊 Analyze project source
+        run: dart analyze --fatal-infos
+
+      - name: 🧪 Run tests
+        run: dart test --coverage=coverage
+
+      - name: 📈 Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: coverage/lcov.info
+
+  flutter-test:
+    name: 🎨 Flutter Integration Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🎨 Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: 📦 Get dependencies
+        run: flutter pub get
+
+      - name: 🧪 Run Flutter tests
+        run: flutter test
+
+  security:
+    name: 🛡️ Security Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🛡️ Run security scan
+        uses: securecodewarrior/github-action-add-sarif@v1
+        with:
+          sarif-file: 'security-scan-results.sarif'

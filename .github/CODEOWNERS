@@ -1,0 +1,23 @@
+# Global owners - all files require review from these users
+* @keelvin
+
+# Documentation
+*.md @keelvin
+docs/ @keelvin
+
+# Core library files
+lib/ @keelvin
+
+# Tests require extra attention
+test/ @keelvin
+
+# GitHub configuration
+.github/ @keelvin
+
+# Package configuration
+pubspec.yaml @keelvin
+analysis_options.yaml @keelvin
+
+# Security-sensitive files
+SECURITY.md @keelvin
+.github/workflows/ @keelvin
