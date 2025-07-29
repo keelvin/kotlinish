@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# Commit message validation for Kotlinish
+# This hook validates commit messages against our conventional commits standard
+
+commit_regex='^(feat|fix|docs|style|refactor|perf|test|build|ci|chore)(\(.+\))?: .{1,72}$'
+error_msg="❌ Invalid commit message format!
+
+📋 Format: <type>(<scope>): <description>
+
+✅ Valid types: feat, fix, docs, style, refactor, perf, test, build, ci, chore
+✅ Valid scopes: scope, collections, async, flutter, core, types, null
+✅ Description: 1-72 characters, present tense, lowercase, no period
+
+📝 Examples:
+  feat(scope): add let function
+  fix(collections): resolve null safety issue
+  docs(readme): update installation guide
+
+📖 See .github/COMMIT_CONVENTION.md for details"
+
+# Read the commit message
+commit_message=$(cat "$1")
+
+# Skip validation for merge commits
+if echo "$commit_message" | grep -qE "^Merge "; then
+    exit 0
+fi
+
+# Skip validation for revert commits
+if echo "$commit_message" | grep -qE "^Revert "; then
+    exit 0
+fi
+
+# Check if commit message matches the pattern
+if ! echo "$commit_message" | grep -qE "$commit_regex"; then
+    echo "$error_msg"
+    echo ""
+    echo "Your commit message:"
+    echo "\"$commit_message\""
+    exit 1
+fi
+
+echo "✅ Commit message format is valid!"
+exit 0
