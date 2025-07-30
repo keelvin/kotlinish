@@ -1,0 +1,24 @@
+name: kotlinish
+description: Kotlin-inspired extensions and utilities for Dart/Flutter - scope functions, powerful collections, elegant async, and more.
+version: 0.1.0-dev
+homepage: https://github.com/keelvin/kotlinish
+repository: https://github.com/keelvin/kotlinish
+issue_tracker: https://github.com/keelvin/kotlinish/issues
+documentation: https://github.com/keelvin/kotlinish#readme
+
+topics:
+  - dart
+  - flutter
+  - kotlin
+  - extensions
+  - utilities
+
+environment:
+  sdk: 3.8.1
+
+dependencies:
+
+dev_dependencies:
+  test: 1.26.3
+  lints: 6.0.0
+  coverage: 1.15.0
