@@ -7,3 +7,10 @@ export 'src/scope_functions/let.dart';
 export 'src/scope_functions/apply.dart';
 export 'src/scope_functions/run.dart';
 export 'src/scope_functions/also.dart';
+export 'src/scope_functions/use.dart';
+
+// Collections
+export 'src/collections/safe_accessors.dart';
+export 'src/collections/conditional_accessors.dart';
+export 'src/collections/grouping_utilities.dart';
+export 'src/collections/transformation_pipelines.dart';
