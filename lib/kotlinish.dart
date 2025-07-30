@@ -14,3 +14,8 @@ export 'src/collections/safe_accessors.dart';
 export 'src/collections/conditional_accessors.dart';
 export 'src/collections/grouping_utilities.dart';
 export 'src/collections/transformation_pipelines.dart';
+
+// Async
+export 'src/async/async_core.dart';
+export 'src/async/async_builders.dart';
+export 'src/async/channels.dart';
