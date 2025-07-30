@@ -19,3 +19,7 @@ export 'src/collections/transformation_pipelines.dart';
 export 'src/async/async_core.dart';
 export 'src/async/async_builders.dart';
 export 'src/async/channels.dart';
+
+// Flutter
+export 'src/flutter/widget_extensions.dart';
+export 'src/flutter/context_extensions.dart';
