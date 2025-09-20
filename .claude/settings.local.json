@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dart analyze:*)",
+      "Bash(dart test:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
